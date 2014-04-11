@@ -1,0 +1,13 @@
+body{
+	background-image: url('../images/brushed.png');
+}
+
+.footer-form{
+	padding: 0;
+	border: none;
+	margin: -1px;
+	& *{
+		border-top-right-radius: 0;
+		border-top-left-radius: 0;
+	}
+}

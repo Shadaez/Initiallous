@@ -1,7 +1,64 @@
-<html>
-	<script type="text/javascript" src="/application.min.js"></script>
-	<link rel="stylesheet" href='/styles.css' type='text/css'/>
-	</head>
-	<body>
-	</body>
+<!DOCTYPE html>
+<html ng-app>
+  <head>
+    <title>Initiallo.us</title>
+    <script src='/socket.io/socket.io.js'></script>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/bootstrap.min.js'></script>
+    <script src='/js/angular.min.js'></script>
+    <script src='/js/application.min.js'></script>
+    <link rel='stylesheet' href='/css/bootstrap.min.css' type='text/css'/>
+    <link rel='stylesheet' href='/css/styles.css' type='text/css'/>
+  </head>
+  <body ng-controller='initiallousCtrl'>
+  	<div class='container'>
+  		<h1>Initiallo.us <br>
+  			<small>A game about creating initiallisms.</small></h1>
+  		<div class='row'>
+  			<div class='col-md-12'>
+  				<div class='panel panel-default'>
+  					<div class='panel-body'>
+  					</div>
+  					<div class='panel-footer footer-form'>
+						<form type = 'text'>
+		                    <div class='input-group'>
+			                    <span class='input-group-addon'>Initialism</span>
+			                    <input class='form-control' type='text' name='initialism' ng-model='initialism'  size='30'>
+			                    <div class='input-group-btn'>
+			                      <button type="button" class="btn btn-default">Submit</span></button>
+			                    </div>
+		                    </div>
+		                </form>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class='row'>
+  			<div class='col-md-8 col-md-push-4'>
+  				<div class='panel panel-default'>
+  					<ol class='list-group' id='Chat'>
+              			<li ng-repeat='chat in chatLog | filter:{global}' class='list-group-item'>
+              				[{{chat.user}] {{chat.message}}
+             			</li>
+           			</ol> 
+					<form class='panel-footer footer-form' type='text'>
+	                    <div class='input-group'>
+	                    	<div class='input-group-btn'>
+		                        <button type="button" class="btn btn-default">Send</button>
+		                    </div>
+		                    <input class='form-control' type='text' name='chat' ng-model='chat'  size='30'>
+		                    <span class='input-group-addon'>Chat</span>
+	                    </div>
+	                </form>
+  				</div>
+  			</div>
+  			<div class='col-md-4 col-md-pull-8'>
+  				<div class='panel panel-default'>
+	  				<div class='panel-body'>
+	  				</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </body>
 </html>

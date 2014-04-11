@@ -1,70 +1,77 @@
 module.exports = function(grunt) {
 
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		sass: {
-			dist: {
-				files: {
-					'public/styles.css': 'src/styles.scss'
-				}
-			}
-		},
-		uglify: {
-			options: {
-				mangle: false
-			},
-			all: {
-				files: [{
-					expand: true,
-					flatten: true,
-					src: ['src/js/**.js'],
-					dest: 'src/js/min/',
-					ext: '.min.js'
-				}]
-			}
-		},
-		handlebars: {
-			compile: {
-				options: {
-					namespace: "PHOTO.Templates",
-					processName: function(path) {
-						return path.match(/([\w\d]*).hbs$/)[1];
-					}
-				},
-				files: {
-					"src/js/min/templates.js": "src/templates/*.hbs"
-				}
-			}
-		},
-		jshint: {
-			files: ['Gruntfile.js', 'src/js/**.js', 'index.js'],
-			options: {
-				// options here to override JSHint defaults
-				globals: {
-					jQuery: true,
-					console: true,
-					module: true,
-					document: true
-				}
-			}
-		},
-		watch: {
-			css: {
-				files: "src/*.scss",
-				tasks: ['sass']
-			},
-			js: {
-				files: ["src/js/*.js", "src/templates/*.hbs"],
-				tasks: ['handlebars', 'jshint', 'uglify', 'concat']
-			}
-		}
-	});
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    sass: {
+      dist: {
+        files: {
+          'public/css/styles.css': 'src/styles.scss'
+        }
+      }
+    },
+    uglify: {
+      options: {
+        banner: '/*! <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+        mangle: false
+      },
+      dist: {
+        files: {
+          'public/js/application.min.js': ['src/application.js']
+        }
+      }
+    },
+    copy: {
+      dist: {
+        files: [{
+          cwd: 'bower_components/bootstrap/dist/',
+          expand: true,
+          src: ['**'],
+          dest: 'public/'
+        }, {
+          expand: true,
+          cwd: 'bower_components/angular/',
+          src: ['**.min.js', '**.map'],
+          dest: 'public/js'
+        },
+        {
+          expand: true,
+          cwd: 'bower_components/jquery/dist/',
+          src: ['**.min.js', '**.map'],
+          dest: 'public/js'
+        }]
+      }
+    },
+    jshint: {
+      files: ['Gruntfile.js', 'src/application.js'],
+      options: {
+        // options here to override JSHint defaults
+        globals: {
+          jQuery: true,
+          console: true,
+          module: true,
+          document: true
+        }
+      }
+    },
+    watch: {
+      css: {
+        files: "src/*.scss",
+        tasks: ['sass']
+      },
+      js: {
+        files: "src/application.js",
+        tasks: ['jshint', 'uglify']
+      }
+    }
+  });
 
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-	grunt.registerTask('default', ['handlebars', 'jshint', 'uglify', 'sass']);
+  grunt.registerTask('dev', ['sass', 'jshint']);
+
+  grunt.registerTask('default', ['jshint', 'uglify', 'sass', 'copy']);
 };

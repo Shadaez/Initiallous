@@ -4,19 +4,26 @@
   "description": "Acrophobia web app clone",
   "main": "index.js",
   "dependencies": {
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "express": "~3.5.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-jshint": "~0.10.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shadaez/Acro.git"
+    "url": "https://github.com/Shadaez/Initiallous.git"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/Shadaez/Acro/issues"
+    "url": "https://github.com/Shadaez/Initiallous/issues"
   }
 }
